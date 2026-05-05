@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
+    <meta
+      name="description"
+      content="Convite digital — 1º aninho e batizado da Isabela"
+    />
+    <title>Convite especial — Isabela</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="preload" as="image" href="isa2.jpeg" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!-- Plano de fundo: foto + overlays (legibilidade + identidade) -->
+    <div class="app-bg" aria-hidden="true">
+      <div id="app-bg-media" class="app-bg__media">
+        <img
+          class="app-bg__img"
+          src="isa2.jpeg"
+          alt=""
+          width="1200"
+          height="1600"
+          decoding="async"
+          fetchpriority="high"
+        />
+      </div>
+      <div class="app-bg__gradient"></div>
+      <!-- Clareia o topo da foto para títulos legíveis sobre o rosto -->
+      <div class="app-bg__crown"></div>
+      <div class="app-bg__mesh"></div>
+      <div class="app-bg__vignette"></div>
+      <div class="app-bg__bottom"></div>
+    </div>
+
+    <!-- Camada de pétalas -->
+    <div id="petals-layer" class="petals-layer" aria-hidden="true"></div>
+
+    <!-- Explosão de flores ao abrir (preenchido via JS) -->
+    <div id="burst-layer" class="burst-layer" aria-hidden="true"></div>
+    <div id="burst-flash" class="burst-flash" aria-hidden="true"></div>
+
+    <!-- Margaridas / flores flutuantes -->
+    <div class="floating-flowers" aria-hidden="true">
+      <span class="flower flower--1">🌼</span>
+      <span class="flower flower--2">🌼</span>
+      <span class="flower flower--3">🌸</span>
+      <span class="flower flower--4">🌼</span>
+    </div>
+    <audio id="musica" src="musica.mp4" preload="auto" loop></audio>
+
+    <!-- Controle de som flutuante -->
+    <button
+      type="button"
+      id="btn-som"
+      class="btn-som"
+      aria-pressed="true"
+      aria-label="Desligar som"
+      title="Som ligado"
+    >
+      <span class="btn-som__icon btn-som__icon--on" aria-hidden="true">🔊</span>
+      <span class="btn-som__icon btn-som__icon--off" aria-hidden="true"
+        >🔇</span
+      >
+    </button>
+
+    <main class="app">
+      <!-- ========== Página 1: capa / envelope ========== -->
+      <section
+        id="pagina-inicial"
+        class="pagina pagina--ativa capa"
+        aria-hidden="false"
+        aria-label="Tela inicial do convite"
+      >
+        <div class="capa__glow" aria-hidden="true"></div>
+
+        <div class="decorative doves" aria-hidden="true">
+          <span class="dove dove--1">🕊️</span>
+          <span class="dove dove--2">🕊️</span>
+        </div>
+
+        <div class="capa__content">
+          <header class="carta__cabecalho">
+            <p class="carta__selo">🌹 Batizado · 1º aninho 🌼</p>
+            <h2 class="carta__titulo">Um convite especial</h2>
+            <p class="carta__sub">para você</p>
+          </header>
+
+          <div class="carta-fechada">
+            <p class="carta-fechada__rotulo">Seu convite chegou</p>
+
+            <div class="carta-fechada__mesa">
+              <div class="carta-fechada__sombra" aria-hidden="true"></div>
+
+              <div class="capa__stage">
+                <div class="capa__aro" aria-hidden="true">
+                  <span>🌸</span><span>🌼</span><span>🌹</span><span>🌼</span
+                  ><span>🌸</span>
+                </div>
+
+                <div id="envelope" class="envelope envelope--carta">
+                  <div class="envelope__verso" aria-hidden="true"></div>
+                  <div class="envelope__borda" aria-hidden="true"></div>
+                  <div class="envelope__shine" aria-hidden="true"></div>
+                  <div class="envelope__flap-wrap">
+                    <div class="envelope__flap"></div>
+                    <div class="envelope__dobra" aria-hidden="true"></div>
+                  </div>
+                  <div class="envelope__corpo">
+                    <div
+                      class="envelope__orelha envelope__orelha--esq"
+                      aria-hidden="true"
+                    ></div>
+                    <div
+                      class="envelope__orelha envelope__orelha--dir"
+                      aria-hidden="true"
+                    ></div>
+                    <div class="envelope__selo" aria-hidden="true">
+                      <span class="envelope__selo-flor">🌼</span>
+                    </div>
+                    <div
+                      class="envelope__linha envelope__linha--top"
+                      aria-hidden="true"
+                    ></div>
+                    <div class="envelope__body">
+                      <p class="envelope__intro">
+                        Você foi convidado para um momento
+                        <span class="envelope__destaque">muito especial</span>…
+                      </p>
+                    </div>
+                    <div
+                      class="envelope__linha envelope__linha--bot"
+                      aria-hidden="true"
+                    ></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <button type="button" id="btn-abrir" class="btn-abrir">
+            <span class="btn-abrir__txt">Abrir a convite</span>
+            <span class="btn-abrir__spark" aria-hidden="true">✨</span>
+          </button>
+        </div>
+      </section>
+
+      <!-- ========== Página 2: convite aberto ========== -->
+      <section
+        id="pagina-convite"
+        class="pagina"
+        hidden
+        aria-hidden="true"
+        aria-label="Convite aberto"
+      >
+        <article class="cartao glass" id="cartao-convite">
+          <header class="cartao__header reveal reveal--1">
+            <div class="foto-moldura foto-moldura--margaridas">
+              <div class="foto-inner">
+                <img
+                  id="foto-isabela"
+                  src="isa.jpeg"
+                  alt="Foto da Isabela"
+                  width="200"
+                  height="200"
+                  loading="eager"
+                  decoding="async"
+                />
+              </div>
+            </div>
+          </header>
+
+          <h1
+            class="cartao__titulo titulo-manuscrito reveal reveal--2"
+            tabindex="-1"
+          >
+            Você está convidado para celebrar o 1º aninho e o batizado da
+            Isabela!
+          </h1>
+
+          <dl class="cartao__info reveal reveal--3">
+            <div class="cartao__info-linha">
+              <dt>Data:</dt>
+              <dd>30 de maio de 2026</dd>
+            </div>
+            <div class="cartao__info-linha">
+              <dt>Horário:</dt>
+              <dd>16h</dd>
+            </div>
+            <div class="cartao__info-linha">
+              <dt>Local:</dt>
+              <dd>Igreja Nossa Senhora da Assunção</dd>
+            </div>
+          </dl>
+
+          <p class="cartao__frase reveal reveal--4">
+            Será um momento de amor, fé e alegria, e sua presença é muito
+            especial para nós!
+          </p>
+
+          <div class="cartao__botoes reveal reveal--5">
+            <a
+              href="https://maps.app.goo.gl/d31bwy35958BqXoZ6"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="btn btn--local btn--pulse"
+              aria-label="Ver localização no mapa"
+            >
+              <span class="btn__icon" aria-hidden="true">📍</span>
+              Localização
+            </a>
+            <a
+              id="link-whatsapp"
+              href="#"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="btn btn--whatsapp btn--pulse"
+              aria-label="Confirmar presença via WhatsApp"
+            >
+              <span class="btn__icon" aria-hidden="true">💬</span>
+              Confirmar presença
+            </a>
+          </div>
+
+          <div class="cartao__flores-decor reveal reveal--6" aria-hidden="true">
+            <span>🌼</span><span>🌸</span><span>🌼</span><span>🌸</span>
+          </div>
+        </article>
+      </section>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>
