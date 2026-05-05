@@ -25,7 +25,7 @@
   var appBgMedia = document.getElementById("app-bg-media");
   var linkWhatsapp = document.getElementById("link-whatsapp");
 
-  var animacaoAberturaMs = 1280;
+  var animacaoAberturaMs = 1000;
 
   var FLORES_BURST = ["🌹", "🌸", "🌼", "💮", "🌺", "🏵️"];
 
@@ -106,7 +106,7 @@
 
   /** Poucas pétalas: menos nós no DOM, animação só com transform/opacity. */
   function iniciarPetals() {
-    var quantidade = 12;
+    var quantidade = 20;
     var i;
     for (i = 0; i < quantidade; i++) {
       criarPetal(i);
@@ -126,7 +126,7 @@
     var r = origem.getBoundingClientRect();
     var cx = r.left + r.width / 2;
     var cy = r.top + r.height / 2;
-    var n = 38;
+    var n = 50;
     var i;
     var fragment = document.createDocumentFragment();
 
@@ -172,12 +172,13 @@
     el.style.left = Math.random() * 100 + "%";
     el.style.animationDuration = 11 + Math.random() * 9 + "s";
     el.style.animationDelay = indice * 0.55 + Math.random() * 2.5 + "s";
-    var t = 8 + Math.random() * 8;
+    var t = 20 + Math.random() * 10;
     el.style.width = t + "px";
     el.style.height = t + "px";
-    if (Math.random() > 0.5) {
-      el.classList.add("petal--rosa");
-    }
+    el.style.fontSize = t + "px";
+    el.style.lineHeight = "1";
+    var emojis = ["🎈", "🌹", "🌸", "🌼", "💮"];
+    el.textContent = emojis[Math.floor(Math.random() * emojis.length)];
     petalsLayer.appendChild(el);
   }
 
